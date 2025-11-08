@@ -700,5 +700,32 @@
   refreshObjects();
   setStatus('Formulario listo. Empieza por "Tipo".');
 </script>
+<!-- Configuración de EmailJS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function() {
+    emailjs.init("oAsqE_pbf94u1kpqr"); // ← tu Public Key
+  })();
+
+  function enviarPorGmail() {
+    const serviceID = "service_tn5oyno"; // ← tu Service ID
+    const templateID = "template_7ji5f8y"; // ← tu Template ID
+
+    const hashtag = document.querySelector("#hashtag").innerText;
+    const jsonData = document.querySelector("#jsonOutput").innerText;
+
+    const templateParams = {
+      hashtag: hashtag,
+      json_data: jsonData
+    };
+
+    emailjs.send(serviceID, templateID, templateParams)
+      .then(() => {
+        alert("✅ Denuncia enviada correctamente a tu correo.");
+      }, (err) => {
+        alert("❌ Error al enviar: " + JSON.stringify(err));
+      });
+  }
+</script>
 </body>
 </html>
